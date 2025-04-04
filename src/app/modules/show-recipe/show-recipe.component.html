@@ -1,0 +1,159 @@
+<div class="container">  
+<div style="text-align: right; margin-bottom: 16px;">  
+  <button mat-button (click)="goToMainMenu()" class="back-button">Назад</button>
+</div>  
+
+<mat-spinner *ngIf="loading"></mat-spinner>  
+<div *ngIf="!loading && recipe">  
+  <span>
+    <h1 class="emotion-1w4b10k">{{ recipe.title }}</h1>
+  </span>  
+  <div class="author-card">
+    <div class="author-header">
+      <span class="author-label">Автор:</span>
+      <span class="author-name">{{recipe.name}} {{recipe.surname}}</span>
+    </div>
+  </div>
+  <div class="emotion-fj09nl">
+      <div class="emotion-1n7zanv">
+        <span title="" class="emotion-13p8cz9">
+          <i class="portion_image">
+            <img class="portion_image_portion" src='/assets/free-icon-food-16466395.png' alt="Порция" />
+          </i>
+          <span class="emotion-r8r0g3"> 
+            <!-- -->порций: <!-- -->&nbsp;
+          </span>
+          <span itemprop="recipeYield">
+            <span>{{ recipe.quantityPortion }}</span>
+          </span>
+        </span>
+        <span title="" class="emotion-13p8cz9">
+          <span class="emotion-r8r0g3">ГОТОВИТЬ: &nbsp;
+
+          </span>
+          <i class="emotion-1s8awir">
+
+          </i><div class="emotion-my9yfq">{{ recipe.cookingTime }}
+
+          </div>
+          <div class="emotion-3mubxc">{{ recipe.cookingTime }}
+
+          </div>
+        </span>
+      </div>
+    </div> 
+    <div *ngIf="recipe.image">
+      <img [src]="recipe.image" alt="Recipe Image" class="show_photo">
+    </div>    
+    <div class="emotion-1509vkh">
+      <div class="emotion-1ik2huf">
+        <span title="" class="emotion-aiknw3">
+          <span class="descriptions">Один из самых популярных десертов в мире — брауни — был придуман в 1893 году на кухне легендарного отеля Palmer House в Чикаго. Этот пирог там пекут до сих пор по оригинальному рецепту, покрывая сверху абрикосовой глазурью. В домашней версии, впрочем, у брауни получается такая изумительная сахарная корочка, что глазировать ее было бы преступлением.
+            У традиционных шоколадных брауни ванильный аромат, хрустящая корочка и влажная серединка. В торт также добавляют грецкие орехи или фисташки, а еще клюкву.
+          </span>
+        </span>
+      </div>
+      <div class="emotion-141luoz">
+        <div class="emotion-inc7pg">
+          <div class="emotion-14qakiv">
+            <div data-ad="ban_240x400_b550" id="ban_240x400_b550">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ingredient_page">
+        <span title="" class="emotion-cy2z52">Ингредиенты</span>
+        <p *ngFor="let ingredient of recipe.ingredients">{{ ingredient.name }}</p>  
+    </div>
+    <div class="category">
+      <span title="" class="emotion-cy2z53">Категории</span>
+      <p *ngFor="let category of recipe.categories">{{ category.name }}</p>  
+  </div>
+  <div class="emotion-nli4b3">
+    <span title="" class="emotion-fdnnxa">
+      Инструкция приготовления
+    </span>
+  </div>
+  <div *ngFor="let block of recipe.instruction; let j = index" class="instruction-wrapper">
+    <div class="instruction-header">
+      <h4>Шаг {{ j + 1 }}</h4>
+    </div>
+    <div class="instruction-block">
+      <div class="instruction-content">
+        <img *ngIf="block.urlImage" [src]="block.urlImage" alt="Instruction Image" class="instruction-image">
+        <p>{{ block.partInstructions }}</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="emotion-1q5opge">
+      <div class="emotion-11ua3wn">
+        <span title="" class="emotion-1y5wnuj">
+          <img class ="timetimer " src="/assets/free-icon-timer-5016723.png" alt="Таймер" />
+          <i class="emotion-1t7fbmm">
+          </i>
+          <span itemprop="cookTime" content="PT40M">
+            {{ recipe.cookingTime }}
+          </span>
+          <meta itemprop="totalTime" content="PT40M">
+          <meta itemprop="prepTime" content="P0D">
+        </span>
+        <div role="button" tabindex="0" class="emotion-9s38cl" (click)="printRecipe()">
+          <span title="" class="emotion-1yzvw4g">
+            <img class="printprinter" src="/assets/free-icon-printer-3222646.png" alt="Принтер" />
+            <i class="emotion-3xmzz1"></i>Распечатать
+          </span>
+        </div>
+      </div>
+    </div>
+          <div class="feedbacks">  
+            <div class="feedbacks_title">  
+                Комментарии ({{ commentCount }}):
+                <button type="button" class="add-comment-button" (click)="openCommentModal()">Добавить комментарий</button>    
+            </div>    
+        
+            <div class="feedback_help">  
+                <div *ngFor="let feedback of feedbacks" class="feedback-item">  
+                    <div class="feedback_author">
+                      <span class="feedback-username">{{ feedback.username || 'None' }}</span>  
+                    </div>
+                    <div class="feedback-header">  
+                        <span class="feedback-mark">Оценка: {{ feedback.mark || '0' }}</span>  
+                        <span class="feedback-date">{{ feedback.createdDate | date: 'd MMMM yyyy' }}</span>  
+                    </div>  
+                    <div class="feedback-content">  
+                        {{ feedback.content }}  
+                    </div>  
+                </div>  
+            </div>  
+            </div>  
+        </div>
+      
+</div>
+<div *ngIf="isModalOpen" class="modal-overlay" (click)="closeCommentModal()">  
+  <div class="modal-content" (click)="$event.stopPropagation()">  
+      <h3>Добавить комментарий</h3>  
+      <textarea [(ngModel)]="newContent" placeholder="Ваш комментарий здесь..."></textarea>  
+      
+      <div class="rating">  
+          <label>Оценка:</label>  
+          <select [(ngModel)]="newMark">  
+              <option value="0">0</option>  
+              <option value="1">1</option>  
+              <option value="2">2</option>  
+              <option value="3">3</option>  
+              <option value="4">4</option>  
+              <option value="5">5</option>  
+          </select>  
+      </div>  
+      
+      <button type="button" class="submit-comment" (click)="submitComment()">Отправить</button>  
+      <button type="button" class="close-modal" (click)="closeCommentModal()">Закрыть</button>  
+  </div>  
+</div>
+<div *ngIf="!loading && !recipe">  
+  <p>Рецепт не найден.</p>  
+</div>

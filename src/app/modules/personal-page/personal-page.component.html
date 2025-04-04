@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="header">
+      <h1>Личный кабинет</h1>
+      <button mat-button (click)="goBack()" class="back-button">Назад</button>
+    </div>
+  
+    <div class="content">
+      <div class="profile-section">
+        <div class="image-container">
+          <img [src]="currentUser?.userImage" alt="Profile Picture" class="profile-image">
+          <button mat-raised-button color="primary" (click)="onButtonClick()" class="upload-button">
+            Загрузить изображение
+          </button>
+          <input type="file" id="file-input" (change)="onFileSelected($event)" style="display: none;">
+        </div>
+      </div>
+      <div class="form-section">
+          <form [formGroup]="profileForm" class="form-container">
+            <mat-form-field appearance="outline" class="form-field">  
+              <mat-label>Телефон</mat-label>  
+              <input matInput formControlName="telephoneNumber">  
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="form-field">  
+            <mat-label>Email</mat-label>  
+            <input matInput formControlName="email">  
+        </mat-form-field>  
+        
+        <mat-form-field appearance="outline" class="form-field">  
+            <mat-label>Имя</mat-label>  
+            <input matInput formControlName="name">  
+        </mat-form-field>  
+        
+        <mat-form-field appearance="outline" class="form-field">  
+            <mat-label>Фамилия</mat-label>  
+            <input matInput formControlName="surName">  
+        </mat-form-field>
+  
+          <div class="button-row">
+            <button mat-raised-button (click)="saveChanges()" class="save-button">Сохранить изменения</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>

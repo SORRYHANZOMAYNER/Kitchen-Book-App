@@ -1,0 +1,89 @@
+<div class="form-container">  
+  <div class="header">  
+      <h2>Создание нового рецепта</h2>  
+      <button mat-raised-button color="accent" (click)="goToStart()">  
+          Назад  
+      </button>  
+  </div>  
+
+  <form (ngSubmit)="onSubmit()" #recipeForm="ngForm">  
+      <mat-form-field appearance="fill" class="form-field">  
+          <mat-label>Название рецепта*</mat-label>  
+          <input matInput placeholder="Введите название" required [(ngModel)]="recipe.title" name="title">  
+          <mat-error *ngIf="recipeForm.controls['title']?.invalid && recipeForm.controls['title']?.touched">  
+              Название рецепта обязательно.  
+          </mat-error>  
+      </mat-form-field>  
+
+      <mat-form-field appearance="fill" class="form-field">  
+          <mat-label>Описание*</mat-label>  
+          <textarea matInput placeholder="Введите описание" required [(ngModel)]="recipe.description" name="description"></textarea>  
+          <mat-error *ngIf="recipeForm.controls['description']?.invalid && recipeForm.controls['description']?.touched">  
+              Описание обязательно.  
+          </mat-error>  
+      </mat-form-field>  
+
+      <mat-form-field appearance="fill" class="form-field">  
+          <mat-label>Время приготовления*</mat-label>  
+          <input matInput placeholder="Введите время приготовления (например, 30 минут)" required [(ngModel)]="recipe.cookingTime" name="cookingTime">  
+          <mat-error *ngIf="recipeForm.controls['cookingTime']?.invalid && recipeForm.controls['cookingTime']?.touched">  
+              Время приготовления обязательно.  
+          </mat-error>  
+      </mat-form-field>  
+
+      <div class="custom-file-container">  
+        <label for="fileUpload" class="custom-file-upload">  
+            <mat-icon>attach_file</mat-icon>  
+            Выберите файл  
+        </label>  
+        <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept="image/*" style="display: none;" />  
+    </div>
+
+      <mat-form-field appearance="fill" class="form-field">  
+          <mat-label>Количество порций</mat-label>  
+          <input matInput type="number" placeholder="Введите количество порций" [(ngModel)]="recipe.quantityPortion" name="quantityPortion">  
+      </mat-form-field>  
+
+      <mat-form-field appearance="fill" class="form-field">  
+          <mat-label>Категории</mat-label>  
+          <mat-select [(ngModel)]="recipe.categories" name="categories" multiple>  
+              <mat-option *ngFor="let category of categories; trackBy: trackByCategory" [value]="category">  
+                  {{ category.name }}  
+              </mat-option>  
+          </mat-select>  
+      </mat-form-field>  
+
+      <mat-form-field appearance="fill" class="form-field">  
+          <mat-label>Ингредиенты</mat-label>  
+          <mat-select [(ngModel)]="recipe.ingredients" name="ingredients" multiple>  
+              <mat-option *ngFor="let ingredient of ingredients; trackBy: trackByIngredient" [value]="ingredient">  
+                  {{ ingredient.name }}  
+              </mat-option>  
+          </mat-select>  
+      </mat-form-field>  
+
+      <button mat-raised-button (click)="addInstructionBlock()" color="accent" type="button">
+        Добавить инструкцию
+    </button>
+    <div *ngFor="let block of recipe.instructionBlocks; let i = index" class="instruction-block">
+        <h4>Блок {{ i + 1 }}</h4>
+        <div class="custom-file-container">
+          <label [for]="'fileUpload' + i" class="custom-file-upload">
+            <mat-icon>attach_file</mat-icon>
+            Выберите файл
+          </label>
+          <input type="file" [id]="'fileUpload' + i" (change)="onFileSelected($event, i)" accept="image/*" style="display: none;" />
+        </div>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Инструкция</mat-label>
+          <textarea matInput [(ngModel)]="block.partInstructions" name="instructionText{{i}}"></textarea>
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="deleteInstructionBlock(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="recipeForm.invalid">
+        Создать рецепт
+    </button>
+  </form>  
+</div>

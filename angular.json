@@ -23,7 +23,9 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                 "input": "public/assets/",
+                 "output": "/assets/"
+                
               }
             ],
             "styles": [
@@ -97,5 +99,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "46a2980d-9241-4736-bc3d-db9853123be1"
   }
 }

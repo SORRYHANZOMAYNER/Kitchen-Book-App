@@ -1,5 +1,4 @@
-import {
-  AngularNodeAppEngine,
+import { AngularNodeAppEngine,
   createNodeRequestHandler,
   isMainModule,
   writeResponseToNodeResponse,

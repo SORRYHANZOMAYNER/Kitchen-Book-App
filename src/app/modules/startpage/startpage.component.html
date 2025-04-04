@@ -1,0 +1,115 @@
+<div class="project-list-container">
+  <div class="logo-wrapper">  
+    <img src="./assets/cook-book.png" alt="Cook Book" class="logo-image">  
+    <h1 class="logo-title">Kitchen Book</h1>  
+  </div>  
+  <header>  
+    <div class="menu-container">  
+      <button mat-button [matMenuTriggerFor]="menu" style="position: absolute; top: 10px; right: 0;">  
+        Menu  
+        <mat-icon>list</mat-icon>  
+      </button>  
+      <mat-menu #menu="matMenu"> 
+        
+        <div class="user-info" *ngIf="currentUser">
+          <img [src]="currentUser.userImage" alt="User Photo" class="user-image">
+        </div>
+        <button mat-menu-item (click)="goToPersonalPage()">Личный кабинет</button>
+        <button mat-menu-item (click)="goToCreateRecipe()">Опубликовать рецепт</button>  
+        <button mat-menu-item (click)="logout()">Выйти</button>  
+      </mat-menu>  
+    </div>  
+  </header>  
+
+  <div class="search-container">  
+    <mat-form-field appearance="fill" class="search-field">  
+      <mat-label>Поиск рецептов</mat-label>  
+      <input matInput [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Введите название рецепта">  
+    </mat-form-field> 
+  </div>
+  <div class="category-filter-container">
+    <button mat-button [matMenuTriggerFor]="categoryMenu">
+      Категории
+      <mat-icon>filter_list</mat-icon>
+    </button>
+    <mat-menu #categoryMenu="matMenu">
+      <button mat-menu-item *ngFor="let category of categories" (click)="filterRecipes(category)">
+        <img [src]="category.image" alt="{{ category.name }}" class="category-image">
+        {{ category.name }}
+      </button>
+    </mat-menu>
+  </div>
+  
+  <div class="projects-container">   
+    <mat-card *ngFor="let recipe of filteredRecipes" class="card">  
+      <div class="recipe-content">  
+        <img mat-card-image [src]="recipe.image" alt="{{ recipe.title }}" class="recipe-image">  
+        
+        <div class="recipe-details">  
+          <mat-card-header>   
+            <mat-card-subtitle>  
+              Название: {{ recipe.title }}  
+            </mat-card-subtitle>   
+            <mat-card-subtitle>  
+              Описание: {{ recipe.description }}  
+            </mat-card-subtitle>   
+            <mat-card-subtitle>  
+              Дата создания: {{ recipe.createdDate | date:'dd.MM.yyyy' }}  
+            </mat-card-subtitle>  
+          </mat-card-header>  
+  
+          <mat-card-content>  
+            <p>{{ recipe.description }}</p>  
+          </mat-card-content>  
+          
+          <mat-card-actions>  
+            <button mat-button color="primary" (click)="goToRecipe(recipe.id)">Подробнее</button>  
+          </mat-card-actions>  
+        </div>  
+      </div>  
+    </mat-card>  
+  </div>
+  <div *ngIf="errorMessage" class="error-message">  
+    <mat-error>{{ errorMessage }}</mat-error>  
+  </div>   
+</div>
+
+
+<!-- <div class="container">  
+  <div class="search-container">  
+    <mat-form-field appearance="outline" class="search-field">  
+      <mat-label>Поиск рецептов</mat-label>  
+      <input matInput type="text" [(ngModel)]="searchTerm" placeholder="Введите название рецепта" (keyup.enter)="searchRecipes()">  
+      <button mat-icon-button matSuffix aria-label="Search" (click)="searchRecipes()">  
+        <mat-icon>search</mat-icon>  
+      </button>  
+    </mat-form-field>  
+  </div>  
+  <main class="main-content">  
+    <div *ngIf="recipes.length === 0" class="no-results">  
+      <p>Рецепты не найдены.</p>  
+    </div>  
+
+    <div class="recipe-list" *ngIf="recipes.length > 0">  
+      <mat-card class="recipe-card" *ngFor="let recipe of recipes">  
+        <mat-card-header>  
+          <mat-card-title class="mat-h5">{{ recipe.title }}</mat-card-title>  
+          <mat-card-subtitle class="mat-subhead">{{ recipe.description }}</mat-card-subtitle>  
+        </mat-card-header>  
+        <mat-card-content>  
+          <h4 class="mat-h6">Категории:</h4>  
+          <mat-list>  
+            <mat-list-item *ngFor="let category of recipe.categories">{{ category.name }}</mat-list-item>  
+          </mat-list>  
+          <h4 class="mat-h6">Ингредиенты:</h4>  
+          <mat-list>  
+            <mat-list-item *ngFor="let ingredient of recipe.ingredients">{{ ingredient.name }}</mat-list-item>  
+          </mat-list>  
+        </mat-card-content>  
+        <mat-card-actions>  
+          <button mat-button color="primary" (click)="goToRecipe(recipe.id)">Подробнее</button>  
+        </mat-card-actions>  
+      </mat-card>  
+    </div>  
+  </main>  
+</div> -->

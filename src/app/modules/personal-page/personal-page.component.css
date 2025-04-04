@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .back-button {
+    margin-left: auto;
+  }
+  
+  .content {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .profile-section {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .upload-button {
+    align-self: center;
+  }
+  
+  .form-section {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: flex-start;
+  }
+  
+  .form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: flex-start; /* Align the save button to the left */
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .save-button {
+    align-self: center;
+  }
+  
+  
