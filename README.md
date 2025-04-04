@@ -33,21 +33,17 @@ Welcome to the Recipe Sharing Website project! This platform allows users to cre
 
 1. **Clone the repository**:
 
-```sh
 git clone [https://github.com/your-username/your-repository.git](https://github.com/SORRYHANZOMAYNER/Kitchen-Book-App.git)
 cd your-repository
 2. **Install dependencies**:
 
-```sh
 npm install
 3. **Start the development server**:
 
-```sh
 ng serve
 
 4. **Open the application**:
 
-```sh
 Navigate to http://localhost:4200 in your web browser to view the application.
 
 ### Other information
