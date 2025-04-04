@@ -50,6 +50,7 @@ ng serve
 Navigate to http://localhost:4200 in your web browser to view the application.
 
 ### Other information
+main code locate in master branch
 Usage
 Creating a Recipe
 
